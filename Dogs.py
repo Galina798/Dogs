@@ -36,6 +36,9 @@ def get_dog_image():
         response = requests.get("https://dog.ceo/api/breeds/image/random")
         response.raise_for_status()
         data = response.json()
+        print(data)
+        print(data['message'])
+        print(data['status'])
         return data["message"]
     except Exception as e:
         mb.showerror("Ошибка", f"Возникла ошибка {e} при загрузке изображений")
@@ -63,11 +66,13 @@ width_label = ttk.Label(text = "Ширина:")
 width_label.pack(side='left', padx=(10, 0))
 width_spinbox = ttk.Spinbox(from_ = 200, to = 500, increment = 50, width = 5)
 width_spinbox.pack(side="left", padx=(0, 10))
+width_spinbox.set(300)
 
 heidht_label = ttk.Label(text = "Высота:")
 heidht_label.pack(side='left', padx=(10, 0))
 heidht_spinbox = ttk.Spinbox(from_ = 200, to = 500, increment = 50, width = 5)
 heidht_spinbox.pack(side="left", padx=(0, 10))
+heidht_spinbox.set(300)
 
 top_level_window = Toplevel(window)
 top_level_window.title("Изображения собачек")
