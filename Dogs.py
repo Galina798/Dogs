@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox as mb
 from tkinter import ttk
 import requests
 from PIL import Image, ImageTk
@@ -20,7 +20,8 @@ def show_image():
             label.config(image = img)
             label.image = img
         except Exception as e:
-            messagebox.showerror("Ошибка!", f"Возникла ошибка {e} при отображении изображения")
+            mb.showerror("Ошибка!", f"Возникла ошибка {e} при отображении изображения")
+    progress.stop()
 
 
 def get_dog_image():
@@ -30,20 +31,25 @@ def get_dog_image():
         data = response.json()
         return data["message"]
     except Exception as e:
-        messagebox.showerror("Ошибка", f"Возникла ошибка {e} при загрузке изображений")
+        mb.showerror("Ошибка", f"Возникла ошибка {e} при загрузке изображений")
+
+def prog():
+    progress['value'] = 0
+    progress.start(30)
+    window.after(3000, show_image)
 
 
 window = Tk()
 window.title("Картинки с собачками")
 window.geometry("360x420")
 
-
 label = ttk.Label()
 label.pack(pady=10)
 
-
-button = Button(text="Загрузить изображение", command = show_image)
+button = ttk.Button(text="Загрузить изображение", command = prog)
 button.pack(pady=10)
 
+progress = ttk.Progressbar(mode = "determinate", length=300)
+progress.pack(pady=10)
 
 window.mainloop()
