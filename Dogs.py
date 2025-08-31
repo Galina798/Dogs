@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 import requests
 from PIL import Image, ImageTk
 from io import BytesIO
@@ -27,7 +28,7 @@ def get_dog_image():
         response = requests.get("https://dog.ceo/api/breeds/image/random")
         response.raise_for_status()
         data = response.json()
-        return data("message")
+        return data["message"]
     except Exception as e:
         messagebox.showerror("Ошибка", f"Возникла ошибка {e} при загрузке изображений")
 
@@ -37,7 +38,7 @@ window.title("Картинки с собачками")
 window.geometry("360x420")
 
 
-label = Label("")
+label = ttk.Label()
 label.pack(pady=10)
 
 
